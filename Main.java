@@ -4,17 +4,20 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class Main {
+
+    static String fullDirName = "F:"+File.separator+"JAVA"+File.separator+"Games"+ File.separator;
+
     public static void main(String[] args) {
 
         initGameDir();   //первая задача
         createSaves();   //вторая задача
 
         //третья задача
-        File directory = new File("F:\\JAVA\\Games\\savegames");
+        File directory = new File(fullDirName + "savegames");
 
         for (File f : directory.listFiles()) {
             if (f.getName().endsWith(".zip")) {
-                openZip(f.getAbsolutePath(),"F:\\JAVA\\Games\\savegames");
+                openZip(f.getAbsolutePath(),fullDirName + "savegames");
             }
         }
 
@@ -59,9 +62,6 @@ public class Main {
                 fout.flush();
                 zin.closeEntry();
                 fout.close();
-
-//                File f = new File(pathToFile);
-//                f.delete();
             }
         } catch (
                 Exception ex) {
@@ -74,20 +74,20 @@ public class Main {
         GameProgress gameProgress_1 = new GameProgress(80,100,6,335.22);
         GameProgress gameProgress_2 = new GameProgress(40,50,99,121.23);
 
-        saveGame("F:\\JAVA\\Games\\savegames\\gp_0.dat",gameProgress_0);
-        saveGame("F:\\JAVA\\Games\\savegames\\gp_1.dat",gameProgress_1);
-        saveGame("F:\\JAVA\\Games\\savegames\\gp_2.dat",gameProgress_2);
+        saveGame(fullDirName + "savegames"+ File.separator +"gp_0.dat",gameProgress_0);
+        saveGame(fullDirName + "savegames"+ File.separator +"gp_1.dat",gameProgress_1);
+        saveGame(fullDirName + "savegames" +File.separator +"gp_2.dat",gameProgress_2);
 
-        zipFiles("F:\\JAVA\\Games\\savegames\\gp_0.dat","gp_0.dat");
-        zipFiles("F:\\JAVA\\Games\\savegames\\gp_1.dat","gp_1.dat");
-        zipFiles("F:\\JAVA\\Games\\savegames\\gp_2.dat","gp_2.dat");
+        zipFiles(fullDirName + "savegames"+ File.separator +"gp_0.dat","gp_0.dat");
+        zipFiles(fullDirName + "savegames"+ File.separator +"gp_1.dat","gp_1.dat");
+        zipFiles(fullDirName + "savegames"+ File.separator +"gp_2.dat","gp_2.dat");
 
         deleteUnzippedFiles();
     }
 
     private static void deleteUnzippedFiles() {
 
-        File directory = new File("F:\\JAVA\\Games\\savegames");
+        File directory = new File(fullDirName + "savegames");
 
         for (File f : directory.listFiles()) {
             if (f.getName().endsWith(".dat")) {
@@ -127,25 +127,24 @@ public class Main {
 
 
     public static void initGameDir() {
-        String fullDirName = "F:\\JAVA\\Games\\";
         //ЛОГИ
         initCatalog(fullDirName + "temp");
-        createFileByName(fullDirName + "temp\\" + "temp.txt");
+        createFileByName(fullDirName + "temp"+ File.separator + "temp.txt");
 
         StringBuffer sbLogs = new StringBuffer();
 
         sbLogs.append(initCatalog(fullDirName + "res")).append("\n");
         sbLogs.append(initCatalog(fullDirName + "savegames")).append("\n");
         sbLogs.append(initCatalog(fullDirName + "src")).append("\n");
-        sbLogs.append(initCatalog(fullDirName + "src\\main")).append("\n");
-        sbLogs.append(initCatalog(fullDirName + "src\\test")).append("\n");
-        sbLogs.append(createFileByName(fullDirName + "src\\main\\" + "Main.java")).append("\n");
-        sbLogs.append(createFileByName(fullDirName + "src\\main\\" + "Utils.java")).append("\n");
-        sbLogs.append(initCatalog(fullDirName + "res\\drawables")).append("\n");
-        sbLogs.append(initCatalog(fullDirName + "res\\vectors")).append("\n");
-        sbLogs.append(initCatalog(fullDirName + "res\\icons")).append("\n");
+        sbLogs.append(initCatalog(fullDirName + "src"+ File.separator +"main")).append("\n");
+        sbLogs.append(initCatalog(fullDirName + "src"+ File.separator +"test")).append("\n");
+        sbLogs.append(createFileByName(fullDirName + "src"+ File.separator +"main"+ File.separator + "Main.java")).append("\n");
+        sbLogs.append(createFileByName(fullDirName + "src"+ File.separator +"main"+ File.separator + "Utils.java")).append("\n");
+        sbLogs.append(initCatalog(fullDirName + "res"+ File.separator +"drawables")).append("\n");
+        sbLogs.append(initCatalog(fullDirName + "res"+ File.separator +"vectors")).append("\n");
+        sbLogs.append(initCatalog(fullDirName + "res"+ File.separator +"icons")).append("\n");
 
-        writeFile(fullDirName + "temp\\" + "temp.txt",sbLogs);
+        writeFile(fullDirName + "temp"+ File.separator + "temp.txt",sbLogs);
     }
 
     public static String initCatalog(String dirName) {
